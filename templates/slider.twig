@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ 
+ ul.cards, p{
+    margin:0;
+    padding:0;
+}
+
+body{
+    background-color:  #aed6f1;
+}
+
+.container{
+    display:flex;
+    justify-content: center;
+}
+
+.scroll-container{
+    width: 600px;
+    height: 305px;
+    display: flex;
+    overflow-y: scroll;
+    overflow-x: hidden;  
+    scrollbar-width: none;  
+}
+.cards__item {
+    display: flex;
+    justify-content: start;
+    font-size: 1.15em;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 7px;
+    height: 100px;
+    width: 560px;
+    background-color: #fbfcfc;
+}
+
+.cards__image img {
+    max-width: 200px;
+    max-height: 100px;
+    margin-right: 10px;
+}
+
+.cards__image img:hover{
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.cards_desc {
+    color: #333;
+}
+
+.iframe{
+    border: 1px solid #ccc;
+    width: 540px;
+    height:305px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+ 
+</style>
+</head>
+<body>
+    <div class="container">
+     <iframe id="iframe" class="iframe" src="https://rutube.ru/play/embed/9d06ff793bac52445b3e070dff69b755/" frameborder="0" allowfullscreen></iframe>
+      <div class="scroll-container">
+           <!--добавить код html-->
+           {% include 'content.twig' %}
+       </div> 
+   </div>
+   <script>
+        document.querySelectorAll('.cards__image').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();  
+            const hrefValue = this.getAttribute('href');  
+            const videoId = getId(hrefValue);  
+            const newSrc = 'https://rutube.ru/play/embed/' + videoId + '/';  
+            document.getElementById('iframe').setAttribute('src', newSrc);  
+        });
+        function getId(url){
+          let regex = '/video\/([a-zA-Z0-9]+)/';
+          let id = url.match(regex);
+          return id[1];
+        }
+    });
+</script>
+</body>
+</html>
+</body>
+</html>
